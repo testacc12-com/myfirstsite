@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в базу данных</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const loader = document.getElementById('loader');
+
+            if (username === 'admin' && password === 'admin') {
+                errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
+                successMessage.style.display = 'block'; // Показываем сообщение об успехе
+                loader.style.display = 'block'; // Показываем загрузчик
+
+                setTimeout(() => {
+                    window.location.href = 'index-2.html'; // Переход на следующую страницу
+                }, 5000); // Задержка 5 секунд
+            } else {
+                successMessage.style.display = 'none'; // Скрываем сообщение об успехе
+                loader.style.display = 'none'; // Скрываем загрузчик
+                errorMessage.style.display = 'block'; // Показываем сообщение об ошибке
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="stock-footage-camera-moves-through-various-top-secret-and-classified-government-documents-leaked-information-or.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+    
+    <div class="overlay">
+        <h1>Вход в базу данных</h1>
+        <form onsubmit="validateForm(event)">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Войти</button>
+        </form>
+        <div id="error-message" class="error" style="display:none;">ДОСТУП ЗАПРЕЩЕН</div>
+        <div id="success-message" class="success" style="display:none;">ДОСТУП ПОЛУЧЕН</div>
+        <div id="loader" class="loader" style="display:none;"></div>
+    </div>
+</body>
+</html>

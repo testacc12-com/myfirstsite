@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розыск преступников</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Розыск преступников</h1>
+    </header>
+    <main>
+        <section class="wanted-list">
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+            <div class="wanted-card">
+                <img class="criminal-photo" alt="Фотография преступника">
+                <h2 class="criminal-name"></h2>
+                <p class="crime-description"></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Розыск преступников</p>
+        <p class="footer-text">Эта страница не несет никакой смысловой нагрузки и была создана исключительно в качестве экспериментального материала.</p>
+        <p class="footer-text">Все представленные здесь тексты не имеют определённой цели и служат лишь для заполнения пространства.</p>
+        <button class="logout-button" onclick="window.location.href='index-1.html'">Выйти</button>
+    </footer>
+
+    <script>
+        const firstNames = ["Иван", "Петр", "Сергей", "Алексей", "Дмитрий", "Антон", "Максим", "Владимир", "Роман", "Андрей"];
+        const lastNames = ["Иванов", "Петров", "Сидоров", "Кузнецов", "Смирнов", "Морозов", "Николаев", "Зайцев", "Попов", "Федоров"];
+        const patronymics = ["Иванович", "Петрович", "Сидорович", "Алексеевич", "Дмитриевич", "Антонович", "Максимович", "Владимирович", "Романович", "Андреевич"];
+        const crimeDescriptions = ["Кража автомобиля.", "Мошенничество с банковскими картами.", "Наркоторговля.", "Грабеж.", "Убийство.", "Изнасилование.", "Угон транспортного средства.", "Кража со взломом.", "Мошенничество при продаже товаров.", "Незаконное хранение наркотиков."];
+
+        const imageUrls = [
+            "https://randomoutputs.com/assets/images/tools/faces/lqlaulfp.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/laxnncjt.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/uhvopzti.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/xzpxrhqt.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/cldnqodh.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/qiypnued.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/wejmlxno.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/tmbpfydk.webp",
+            "https://randomoutputs.com/assets/images/tools/faces/tgmxubqx.webp"
+        ];
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateCriminalDetails() {
+            const shuffledImages = shuffleArray([...imageUrls]); // Перемешивание массива изображений
+            const criminalCards = document.querySelectorAll('.wanted-card');
+
+            criminalCards.forEach((card, index) => {
+                const fullName = `${getRandomElement(lastNames)} ${getRandomElement(firstNames)} ${getRandomElement(patronymics)}`;
+                const crimeDescription = getRandomElement(crimeDescriptions);
+                const randomImageUrl = shuffledImages[index]; // Получение уникального URL
+
+                card.querySelector('.criminal-photo').src = randomImageUrl; // Установка изображения
+                card.querySelector('.criminal-name').textContent = fullName;
+                card.querySelector('.crime-description').textContent = crimeDescription;
+            });
+        }
+
+        generateCriminalDetails();
+    </script>
+</body>
+</html>

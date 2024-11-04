@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в базу данных</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        let captchaNumber;
+        let attempts;
+
+        function showCaptcha() {
+            captchaNumber = Math.floor(Math.random() * 5) + 1;
+            attempts = 0;
+            document.getElementById('captcha-container').style.display = 'block';
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const loader = document.getElementById('loader');
+
+            if (username === 'admin' && password === 'admin') {
+                errorMessage.style.display = 'none'; 
+                successMessage.style.display = 'block';
+                loader.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = 'index-2.html';
+                }, 5000);
+            } else {
+                successMessage.style.display = 'none';
+                loader.style.display = 'none';
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function checkCaptcha() {
+            const userInput = parseInt(document.getElementById('captcha-input').value);
+            const captchaMessage = document.getElementById('captcha-message');
+
+            attempts++;
+            if (userInput === captchaNumber) {
+                captchaMessage.textContent = 'Поздравляем, вы угадали!';
+                captchaMessage.style.color = 'green';
+                setTimeout(() => {
+                    window.location.href = 'index-2.html';
+                }, 2000);
+            } else if (attempts >= 4) {
+                captchaMessage.textContent = 'Вы исчерпали все попытки. Попробуйте еще раз!';
+                captchaMessage.style.color = 'red';
+                document.getElementById('captcha-container').style.display = 'none';
+            } else {
+                captchaMessage.textContent = `Неправильно! У вас осталось ${4 - attempts} попытки.`;
+                captchaMessage.style.color = 'orange';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="stock-footage-camera-moves-through-various-top-secret-and-classified-government-documents-leaked-information-or.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div class="overlay">
+        <h1>Вход в базу данных</h1>
+        <form onsubmit="validateForm(event)">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Войти</button>
+            <button type="button" onclick="showCaptcha()">Другой Способ</button>
+        </form>
+        <div id="error-message" class="error" style="display:none;">ДОСТУП ЗАПРЕЩЕН</div>
+        <div id="success-message" class="success" style="display:none;">ДОСТУП ПОЛУЧЕН</div>
+        <div id="loader" class="loader" style="display:none;"></div>
+
+        <div id="captcha-container" class="captcha-container" style="display:none;">
+            <h2>Угадайте число от 1 до 5</h2>
+            <input type="number" id="captcha-input" min="1" max="5" required>
+            <button onclick="checkCaptcha()">Проверить</button>
+            <div id="captcha-message" class="captcha-message"></div>
+        </div>
+    </div>
+</body>
+</html>
